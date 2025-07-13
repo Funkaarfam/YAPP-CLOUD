@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Verify Your Email - Yapp Cloud</title>
+  <link rel="stylesheet" href="register.css" />
+  <style>
+    /* Centered box with rounded corners */
+    .verify-container {
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(12px);
+      padding: 40px 30px;
+      border-radius: 20px;
+      max-width: 400px;
+      margin: 100px auto;
+      text-align: center;
+      color: white;
+      box-shadow: 0 0 20px rgba(0,0,0,0.5);
+    }
+    .logo {
+      width: 80px;
+      margin: 0 auto 15px auto;
+      display: block;
+    }
+    .logo-text {
+      font-family: 'Segoe UI', sans-serif;
+      font-weight: bold;
+      font-size: 2.5rem;
+      letter-spacing: 3px;
+      margin-bottom: 30px;
+    }
+    .email-mask {
+      font-weight: bold;
+      color: #a500ff;
+      word-break: break-word;
+    }
+  </style>
+</head>
+<body style="background: linear-gradient(to bottom right, #0d0d1a, #000); margin:0; font-family: 'Segoe UI', sans-serif;">
+
+  <div class="verify-container">
+    <img src="img/logo.png" alt="YappCloud Logo" class="logo" />
+    <div class="logo-text">YappCloud</div>
+
+    <h2>Verify Your Email</h2>
+    <p>
+      We've sent a verification email to:
+    </p>
+    <p class="email-mask" id="masked-email"></p>
+    <p>Please check your inbox and click the link to activate your account.</p>
+  </div>
+
+  <script>
+    // Get the email from URL query params, e.g. verify.html?email=user@example.com
+    function maskEmail(email) {
+      if (!email) return "";
+
+      const [local, domain] = email.split("@");
+      const half = Math.floor(local.length / 2);
+      const maskedLocal = local.slice(0, half) + "****";
+      return maskedLocal + "@" + domain;
+    }
+
+    function getQueryParam(param) {
+      const params = new URLSearchParams(window.location.search);
+      return params.get(param);
+    }
+
+    const email = getQueryParam("email");
+    const masked = maskEmail(email);
+    document.getElementById("masked-email").textContent = masked || "your email";
+  </script>
+</body>
+</html>
